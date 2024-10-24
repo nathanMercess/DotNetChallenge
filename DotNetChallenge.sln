@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Web", "DotNetChallenge.Web\DotNetChallenge.Web.csproj", "{EC5349D0-B3CB-46B6-B0A4-B365368E6754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Web", "src\DotNetChallenge.Web\DotNetChallenge.Web.csproj", "{EC5349D0-B3CB-46B6-B0A4-B365368E6754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
