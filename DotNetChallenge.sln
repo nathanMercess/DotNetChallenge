@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Web", "src\DotNetChallenge.Web\DotNetChallenge.Web.csproj", "{EC5349D0-B3CB-46B6-B0A4-B365368E6754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetChallenge.Web", "src\DotNetChallenge.Web\DotNetChallenge.Web.csproj", "{EC5349D0-B3CB-46B6-B0A4-B365368E6754}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0954E040-FA6B-4B05-B1CC-DA324353D95A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - infrastructure", "2 - infrastructure", "{62446D15-39C4-476F-8745-008E02F725A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - domain", "3 - domain", "{7AD39B46-9402-4EA8-8DFA-04E4C190E72B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - application", "5 - application", "{565AB1AD-D3E1-4A97-B7E2-CA439DBB8EBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - tests", "7 - tests", "{4325DD74-D188-418F-88EE-21323857E411}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - crosscutting", "6 - crosscutting", "{852FF709-5609-4009-8159-AB7248CF7C56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - service", "4 - service", "{74E79916-B229-4966-9438-3473F276CF4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +32,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC5349D0-B3CB-46B6-B0A4-B365368E6754} = {565AB1AD-D3E1-4A97-B7E2-CA439DBB8EBE}
+		{62446D15-39C4-476F-8745-008E02F725A7} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
+		{7AD39B46-9402-4EA8-8DFA-04E4C190E72B} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
+		{565AB1AD-D3E1-4A97-B7E2-CA439DBB8EBE} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
+		{4325DD74-D188-418F-88EE-21323857E411} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
+		{852FF709-5609-4009-8159-AB7248CF7C56} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
+		{74E79916-B229-4966-9438-3473F276CF4C} = {0954E040-FA6B-4B05-B1CC-DA324353D95A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C3B9FBC-7664-4233-AB54-3863409F3C9A}
