@@ -36,6 +36,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Services.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Services.Implementations", "src\DotNetChallenge.Services.Implementations\DotNetChallenge.Services.Implementations.csproj", "{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 - contracts", "2.1 - contracts", "{BEA3A839-24A5-4ACD-B917-094E98505213}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Infra.Contracts", "src\DotNetChallenge.Infra.Contracts\DotNetChallenge.Infra.Contracts.csproj", "{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.2 - implementations", "2.2 - implementations", "{5696EE81-C155-4D6F-8A5E-F022FBB0D153}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Infra.Implementations", "src\DotNetChallenge.Infra.Implementations\DotNetChallenge.Infra.Implementations.csproj", "{97775169-A30F-46B8-A18A-557599332313}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +70,14 @@ Global
 		{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97775169-A30F-46B8-A18A-557599332313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97775169-A30F-46B8-A18A-557599332313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97775169-A30F-46B8-A18A-557599332313}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97775169-A30F-46B8-A18A-557599332313}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +96,10 @@ Global
 		{E40A2307-3D4C-47E3-B3DC-FC105584A6EC} = {74E79916-B229-4966-9438-3473F276CF4C}
 		{75746655-F4A0-4DCD-9A01-121C38B7ABBA} = {E92F9B86-A167-4037-B2DF-4E38FF82C2D7}
 		{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A} = {E40A2307-3D4C-47E3-B3DC-FC105584A6EC}
+		{BEA3A839-24A5-4ACD-B917-094E98505213} = {62446D15-39C4-476F-8745-008E02F725A7}
+		{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE} = {BEA3A839-24A5-4ACD-B917-094E98505213}
+		{5696EE81-C155-4D6F-8A5E-F022FBB0D153} = {62446D15-39C4-476F-8745-008E02F725A7}
+		{97775169-A30F-46B8-A18A-557599332313} = {5696EE81-C155-4D6F-8A5E-F022FBB0D153}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C3B9FBC-7664-4233-AB54-3863409F3C9A}
