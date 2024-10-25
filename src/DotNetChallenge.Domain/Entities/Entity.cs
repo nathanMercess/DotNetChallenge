@@ -2,7 +2,7 @@
 
 public abstract class Entity
 {
-    protected Guid Id { get; } = Guid.NewGuid();
+    protected Guid Id { get; }
 
     protected bool Excluded { get; private set; }
 
