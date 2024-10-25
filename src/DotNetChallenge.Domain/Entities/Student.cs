@@ -19,8 +19,8 @@ public sealed class Student : Entity
 
     public void SetBasicInformation(string name, string user)
     {
-        DomainValidationHelper.IsEmptyOrLessOrEqualsThan(name, StudentConstants.STUDANT_NAME_MAX_LENGTH, StudantDomainErrorsConstant.INVALID_STUDANT_NAME);
-        DomainValidationHelper.IsEmptyOrLessOrEqualsThan(user, StudentConstants.STUDANT_USER_MAX_LENGTH, StudantDomainErrorsConstant.INVALID_STUDANT_USER);
+        DomainValidationHelper.IsEmptyOrLessOrEqualsThan(name, StudentConstants.STUDENT_NAME_MAX_LENGTH, StudentDomainErrorsConstant.INVALID_STUDENT_NAME);
+        DomainValidationHelper.IsEmptyOrLessOrEqualsThan(user, StudentConstants.STUDENT_USER_MAX_LENGTH, StudentDomainErrorsConstant.INVALID_STUDENT_USER);
 
         Name = name;
         User = user;
