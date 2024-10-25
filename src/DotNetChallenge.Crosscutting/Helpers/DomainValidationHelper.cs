@@ -6,6 +6,12 @@ namespace DotNetChallenge.Crosscutting.Helpers;
 
 public static class DomainValidationHelper
 {
+    public static void IsNotNull<T>(T obj, string errorCode) where T : class
+    {
+        if (obj is null)
+            ThrowHandledException(errorCode);
+    }
+
     public static void IsNotEmpty(Guid guid, string errorCode)
     {
         if (guid.IsInvalid())

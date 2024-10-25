@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetChallenge.Crosscutting\DotNetChallenge.Crosscutting.csproj" />
+  </ItemGroup>
+
 </Project>
