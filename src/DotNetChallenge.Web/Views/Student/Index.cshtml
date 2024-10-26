@@ -1,0 +1,66 @@
+﻿@using DotNetChallenge.Crosscutting.Dtos
+@model IEnumerable<StudentDto>
+
+@{
+    ViewData["Title"] = "Lista de Estudantes";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center page-title">Lista de Estudantes</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 custom-search-bar">
+        <div class="input-group search-group">
+            <input type="text" class="form-control search-input" id="studentSearch" placeholder="Buscar estudante por nome ou usuário..." oninput="studentService.searchStudents()">
+        </div>
+        <div>
+            <button class="btn btn-success btn-add" onclick="studentModalService.openStudentModal()"><i class="bi bi-plus-lg"></i> Cadastrar Estudante</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome</th>
+                    <th>Usuário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                @foreach (var student in Model)
+                {
+                    <tr id="student-row-@student.Id">
+                        <td>@student.Name</td>
+                        <td>@student.User</td>
+                        <td>
+                            <button class="action-icon" onclick="studentService.goToStudentDetails('@student.Id')" title="Editar">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button class="action-icon btn btn-danger"
+                                    id="@student.Id"
+                                    onclick="studentService.confirmDelete('@student.Id')"
+                                    data-bs-toggle="popover"
+                                    data-bs-html="true">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center mt-3">
+            Nenhum estudante encontrado.
+        </div>
+    }
+</div>
+
+<partial name="_StudentModal" />
+
+<script type="module" src="/js/student.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="~/css/site-custom.css" asp-append-version="true" />

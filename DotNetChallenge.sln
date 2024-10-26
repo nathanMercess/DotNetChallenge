@@ -32,17 +32,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - contracts", "4.1 - co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - implementations", "4.2 - implementations", "{E40A2307-3D4C-47E3-B3DC-FC105584A6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Services.Contracts", "src\DotNetChallenge.Services.Contracts\DotNetChallenge.Services.Contracts.csproj", "{75746655-F4A0-4DCD-9A01-121C38B7ABBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetChallenge.Services.Contracts", "src\DotNetChallenge.Services.Contracts\DotNetChallenge.Services.Contracts.csproj", "{75746655-F4A0-4DCD-9A01-121C38B7ABBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Services.Implementations", "src\DotNetChallenge.Services.Implementations\DotNetChallenge.Services.Implementations.csproj", "{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetChallenge.Services.Implementations", "src\DotNetChallenge.Services.Implementations\DotNetChallenge.Services.Implementations.csproj", "{DEF690B7-C3AF-4430-BD76-DEF57F0BC70A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.1 - contracts", "2.1 - contracts", "{BEA3A839-24A5-4ACD-B917-094E98505213}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Infra.Contracts", "src\DotNetChallenge.Infra.Contracts\DotNetChallenge.Infra.Contracts.csproj", "{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetChallenge.Infra.Contracts", "src\DotNetChallenge.Infra.Contracts\DotNetChallenge.Infra.Contracts.csproj", "{89D98EFD-DA14-4C2B-96D4-C3664AE34BEE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.2 - implementations", "2.2 - implementations", "{5696EE81-C155-4D6F-8A5E-F022FBB0D153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetChallenge.Infra.Implementations", "src\DotNetChallenge.Infra.Implementations\DotNetChallenge.Infra.Implementations.csproj", "{97775169-A30F-46B8-A18A-557599332313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetChallenge.Infra.Implementations", "src\DotNetChallenge.Infra.Implementations\DotNetChallenge.Infra.Implementations.csproj", "{97775169-A30F-46B8-A18A-557599332313}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

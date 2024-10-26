@@ -1,0 +1,57 @@
+﻿@using DotNetChallenge.Crosscutting.Dtos
+@model StudentDto
+
+@{
+    ViewData["Title"] = "Detalhes do Estudante";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center page-title">Detalhes do Estudante</h2>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Informações do Estudante</h5>
+            <p><strong>Nome:</strong> @Model.Name</p>
+            <p><strong>Usuário:</strong> @Model.User</p>
+            <button class="btn btn-success btn-add" onclick="studentModalService.openStudentModal({ Id: '@Model.Id', Name: '@Model.Name', User: '@Model.User' })">Editar Estudante</button>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Turmas do Estudante</h5>
+
+            @if (Model.AcademicClasses != null && Model.AcademicClasses.Any())
+            {
+                <table class="table table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nome da Turma</th>
+                            <th>Ano</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var academicClass in Model.AcademicClasses)
+                        {
+                            <tr>
+                                <td>@academicClass.ClassName</td>
+                                <td>@academicClass.Year</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Este estudante não está inscrito em nenhuma turma.</p>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/Student" class="btn btn-primary">Voltar para a Lista de Estudantes</a>
+    </div>
+</div>
+
+
+<partial name="_StudentModal" />

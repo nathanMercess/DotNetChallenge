@@ -2,11 +2,13 @@
 
 public abstract class Entity
 {
-    protected Guid Id { get; }
+    public Guid Id { get; private set; } = Guid.NewGuid();
 
-    protected bool Excluded { get; private set; }
+    public bool Excluded { get; private set; }
 
-    protected void SetExcluded() => Excluded = true;
+    public void SetExcluded() => Excluded = true;
 
-    protected void RecoverExcluded() => Excluded = false;
+    public void RecoverExcluded() => Excluded = false;
+
+    public Entity() { }
 }

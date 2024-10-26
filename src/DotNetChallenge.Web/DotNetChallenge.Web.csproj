@@ -1,17 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DotNetChallenge.Services.Contracts\DotNetChallenge.Services.Contracts.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DotNetChallenge.Crosscutting\DotNetChallenge.Crosscutting.csproj" />
+		<ProjectReference Include="..\DotNetChallenge.Infra.Implementations\DotNetChallenge.Infra.Implementations.csproj" />
+		<ProjectReference Include="..\DotNetChallenge.Services.Contracts\DotNetChallenge.Services.Contracts.csproj" />
+		<ProjectReference Include="..\DotNetChallenge.Services.Implementations\DotNetChallenge.Services.Implementations.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\js\student.js" />
+	</ItemGroup>
 
 </Project>

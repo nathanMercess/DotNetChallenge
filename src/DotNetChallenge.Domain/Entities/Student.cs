@@ -5,11 +5,17 @@ namespace DotNetChallenge.Domain.Entities;
 
 public sealed class Student : Entity
 {
+    private readonly List<AcademicClass> _classList = new List<AcademicClass>();
+
     public string Name { get; private set; }
 
     public string User { get; private set; }
 
     public string Password { get; private set; }
+
+    public IReadOnlyCollection<AcademicClass> AcademicClasses => _classList.AsReadOnly();
+
+    public Student() { }
 
     public Student(string name, string user, string password)
     {
@@ -28,7 +34,9 @@ public sealed class Student : Entity
 
     public void SetPassword(string password)
     {
-        DomainValidationHelper.IsNotNull(Password, nameof(Password));
+        DomainValidationHelper.IsNotNull(password, StudentDomainErrorsConstant.INVALID_STUDENT_PASSWORD);
         Password = password;
     }
+
+    public void AddAcademicClass(AcademicClass academicClass) => _classList.Add(academicClass);
 }

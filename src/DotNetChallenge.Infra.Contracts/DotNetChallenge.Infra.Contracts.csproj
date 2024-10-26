@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <PackageReference Include="Dapper" Version="2.1.44" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetChallenge.Domain\DotNetChallenge.Domain.csproj" />
   </ItemGroup>
 
 </Project>

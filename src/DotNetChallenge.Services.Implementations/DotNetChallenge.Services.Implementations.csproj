@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DotNetChallenge.Web\DotNetChallenge.Web.csproj" />
+    <ProjectReference Include="..\DotNetChallenge.Infra.Contracts\DotNetChallenge.Infra.Contracts.csproj" />
+    <ProjectReference Include="..\DotNetChallenge.Services.Contracts\DotNetChallenge.Services.Contracts.csproj" />
   </ItemGroup>
+
 
 </Project>

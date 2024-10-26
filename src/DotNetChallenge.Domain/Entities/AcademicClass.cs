@@ -11,10 +11,12 @@ public sealed class AcademicClass : Entity
 
     public int Year { get; private set; }
 
+    public AcademicClass() { }
+
     public AcademicClass(Guid courseId, string className, int year)
     {
         DomainValidationHelper.IsNotEmpty(courseId, AcademicClassDomainErrorsConstant.INVALID_COURSE_ID);
-        SetAcademicClass(className, year);   
+        SetAcademicClass(className, year);
 
         CourseId = courseId;
     }

@@ -1,0 +1,49 @@
+﻿@* Partial view para o modal de cadastro de estudante *@
+
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentModalLabel">Editar Estudante</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="successAlert" class="alert alert-success d-none" role="alert">
+                    <h4 class="alert-heading">Muito bem!</h4>
+                    <p>O estudante foi cadastrado com sucesso!</p>
+                </div>
+
+                <form id="studentForm">
+                    <div class="form-group mb-3">
+                        <label for="studentName" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="studentName" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="studentUser" class="form-label">Usuário</label>
+                        <input type="text" class="form-control" id="studentUser" required>
+                    </div>
+
+                    <div id="passwordFields">
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="password" placeholder="Digite uma senha segura" required>
+                            <small class="form-text text-muted" id="passwordStrength" style="display: none;">A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial.</small>
+                            <div class="invalid-feedback" id="passwordFeedback"></div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="confirmPassword" class="form-label">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme sua senha" required>
+                            <div class="invalid-feedback" id="confirmPasswordFeedback"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="modalFooter" class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveStudentButton" onclick="studentModalService.validateAndAddStudent()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/studentModal.js"></script>
