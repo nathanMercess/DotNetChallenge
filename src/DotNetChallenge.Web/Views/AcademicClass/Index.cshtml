@@ -84,7 +84,7 @@
                     </div>
                     <div class="form-group">
                         <label for="year">Ano</label>
-                        <input type="number" class="form-control" id="year" name="Year" required placeholder="YYYY" min="2000" max="2100">
+                        <input type="number" class="form-control" id="year" name="Year" maxlength="4" required placeholder="YYYY" min="2000" max="2100" oninput="this.value = this.value.slice(0, 4);">
                         <small id="yearHelp" class="form-text text-muted">Insira um ano válido entre 2000 e 2100.</small>
                     </div>
                 </form>
