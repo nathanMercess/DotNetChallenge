@@ -36,9 +36,9 @@ public sealed class StudentRepository : IStudentRepository
             FROM 
                 Student
             LEFT JOIN 
-                StudentClassEnrollment ON student.id = StudentClassEnrollment.StudentId
+                StudentClassEnrollment ON student.id = StudentClassEnrollment.StudentId and StudentClassEnrollment.[Excluded] = 0
             LEFT JOIN 
-                AcademicClass ON StudentClassEnrollment.AcademicClassId = AcademicClass.Id
+                AcademicClass ON StudentClassEnrollment.AcademicClassId = AcademicClass.Id and AcademicClass.[Excluded] = 0
             WHERE 
                 Student.id = @Id";
 
@@ -54,7 +54,7 @@ public sealed class StudentRepository : IStudentRepository
                     studentDictionary.Add(studentId, currentStudent);
                 }
 
-                if (academicClass != null && !academicClass.Excluded)
+                if (academicClass != null)
                 {
                     currentStudent.AddAcademicClass(academicClass);
                 }

@@ -120,3 +120,11 @@ export class AcademicClassOffcanvas {
 
 const academicClassOffcanvas = new AcademicClassOffcanvas();
 window.academicClassOffcanvas = academicClassOffcanvas;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const offcanvasElement = document.getElementById('offcanvasStudentList');
+
+    offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
+        location.reload();
+    });
+});
