@@ -62,6 +62,21 @@ export class AcademicClassOffcanvas {
         }
     }
 
+    async removeStudentFromClass(studentId, studentName) {
+        const classId = this.getClassId();
+        try {
+            const response = await this.httpService.delete(`${this.baseUrl}RemoveStudentFromClass/${classId}/${studentId}`);
+            if (response.StatusCode == 200) {
+                document.getElementById(`student-card-${studentId}`).remove();
+                this.showSuccessAlertGlobal(`Estudante ${decodeURIComponent(studentName)} removido com sucesso!`);
+            } else {
+                this.showErrorAlert("Erro ao remover o estudante da classe.");
+            }
+        } catch (error) {
+            this.showErrorAlert("Erro na requisição de remoção.");
+        }
+    }
+
     getClassId() {
         const urlParts = window.location.pathname.split('/');
         return urlParts[urlParts.length - 1];
@@ -75,6 +90,18 @@ export class AcademicClassOffcanvas {
 
         setTimeout(() => {
             successAlert.classList.add("d-none");
+        }, 3000);
+    }
+
+    showSuccessAlertGlobal(message) {
+        const alertContainer = document.getElementById("globalSuccessAlert");
+        const alertMessage = document.getElementById("globalSuccessAlertMessage");
+
+        alertMessage.textContent = message;
+        alertContainer.classList.remove("d-none");
+
+        setTimeout(() => {
+            alertContainer.classList.add("d-none");
         }, 3000);
     }
 

@@ -98,13 +98,11 @@ public sealed class StudentRepository : IStudentRepository
     public async Task<Student[]> GetAllActiveStudentsNotInCourseAsync(Guid courseId)
     {
         string sql = @"
-            SELECT * 
-            FROM Student 
-            WHERE Excluded = 0
-            AND Id NOT IN (
-                SELECT StudentId 
-                FROM StudentClassEnrollment 
-                WHERE AcademicClassId = @CourseId )";
+            SELECT s.*
+            FROM Student s
+            LEFT JOIN StudentClassEnrollment sce ON s.Id = sce.StudentId AND sce.AcademicClassId = @CourseId
+            WHERE s.Excluded = 0
+              AND (sce.StudentId IS NULL OR sce.Excluded = 1)";
 
         IEnumerable<Student> students = await _dbConnection.QueryAsync<Student>(sql, new { CourseId = courseId });
 

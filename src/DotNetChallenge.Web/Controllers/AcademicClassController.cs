@@ -35,5 +35,9 @@ namespace DotNetChallenge.Web.Controllers
         [HttpPost("AddStudentToClass/{classId:guid}/{studentId:guid}")]
         public async Task<IActionResult> AddStudentToClass(Guid classId, Guid studentId)
             => Ok(await _academicClassService.AddStudentToClassAsync(classId, studentId));
+
+        [HttpDelete("RemoveStudentFromClass/{classId:guid}/{studentId:guid}")]
+        public async Task<IActionResult> RemoveStudentFromClass(Guid classId, Guid studentId)
+            => Ok(await _academicClassService.RemoveStudentFromClassAsync(classId, studentId));
     }
 }

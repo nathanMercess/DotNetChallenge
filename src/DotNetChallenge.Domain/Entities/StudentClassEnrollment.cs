@@ -9,6 +9,7 @@ public sealed class StudentClassEnrollment : Entity
 
     public Guid StudentId { get; }
 
+    public StudentClassEnrollment() { }
     public StudentClassEnrollment(Guid academicClassId, Guid studentId)
     {
         DomainValidationHelper.IsNotEmpty(academicClassId, StudentClassEnrollmentDomainErrorsConstant.INVALID_ACADEMIC_CLASS_ID);

@@ -19,4 +19,8 @@ public interface IAcademicClassRepository
     Task<AcademicClass> ExistsByClassNameAsync(string className);
 
     Task<bool> AddStudentToClassAsync(StudentClassEnrollment studentClassEnrollment);
+    
+    Task<StudentClassEnrollment> GetStudentClassEnrollmentAsync(Guid classId, Guid studentId);
+    
+    Task<bool> UpdateStudentClassEnrollmentAsync(StudentClassEnrollment studentClassEnrollment);
 }

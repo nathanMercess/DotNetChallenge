@@ -90,7 +90,15 @@ internal sealed class AcademicClassService : IAcademicClassService
         if (classId.IsInvalid() || studentId.IsInvalid())
             throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
 
-        StudentClassEnrollment studentClassEnrollment = new StudentClassEnrollment(classId, studentId) { };
+        StudentClassEnrollment studentClassEnrollment = await _academicClassRepository.GetStudentClassEnrollmentAsync(classId, studentId);
+
+        if (studentClassEnrollment is not null)
+        {
+            studentClassEnrollment.RecoverExcluded();
+            return await _academicClassRepository.UpdateStudentClassEnrollmentAsync(studentClassEnrollment);
+        }
+
+        studentClassEnrollment = new StudentClassEnrollment(classId, studentId) { };
 
         return await _academicClassRepository.AddStudentToClassAsync(studentClassEnrollment);
     }
@@ -103,5 +111,20 @@ internal sealed class AcademicClassService : IAcademicClassService
             throw new HandledException(ExceptionConstants.CLASS_NOT_FOUND);
 
         return academicClass;
+    }
+
+    public async Task<bool> RemoveStudentFromClassAsync(Guid classId, Guid studentId)
+    {
+        if (classId.IsInvalid() || studentId.IsInvalid())
+            throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
+
+        StudentClassEnrollment studentClassEnrollment = await _academicClassRepository.GetStudentClassEnrollmentAsync(classId, studentId);
+
+        if (studentClassEnrollment is null)
+            throw new HandledException(ExceptionConstants.STUDENT_CLASS_ENROLLMENT_NOT_FOUND);
+
+        studentClassEnrollment.SetExcluded();
+
+        return await _academicClassRepository.UpdateStudentClassEnrollmentAsync(studentClassEnrollment);
     }
 }

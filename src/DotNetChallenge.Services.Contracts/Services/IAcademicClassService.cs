@@ -14,4 +14,6 @@ public interface IAcademicClassService
     Task<bool> UpdateClassAsync(AcademicClassDto academicClass);
     
     Task<bool> AddStudentToClassAsync(Guid classId, Guid studentId);
+
+    Task<bool> RemoveStudentFromClassAsync(Guid classId, Guid studentId);
 }

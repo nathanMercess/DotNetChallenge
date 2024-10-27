@@ -43,7 +43,7 @@ public sealed class AcademicClassRepository : IAcademicClassRepository
             FROM 
                 [AcademicClass] ac
             LEFT JOIN 
-                [StudentClassEnrollment] sce ON ac.[Id] = sce.[AcademicClassId]
+                [StudentClassEnrollment] sce ON ac.[Id] = sce.[AcademicClassId] AND sce.[Excluded] = 0
             LEFT JOIN 
                 [Student] s ON sce.[StudentId] = s.[Id]
             WHERE 
@@ -117,5 +117,32 @@ public sealed class AcademicClassRepository : IAcademicClassRepository
         int result = await _dbConnection.ExecuteAsync(sql, studentClassEnrollment);
 
         return result > 0;
+    }
+
+    public async Task<StudentClassEnrollment> GetStudentClassEnrollmentAsync(Guid classId, Guid studentId)
+    {
+        string sql = @"
+            SELECT *
+            FROM StudentClassEnrollment
+            WHERE AcademicClassId = @ClassId AND StudentId = @StudentId";
+
+        return await _dbConnection.QuerySingleOrDefaultAsync<StudentClassEnrollment>(sql, new { ClassId = classId, StudentId = studentId });
+    }
+
+    public async Task<bool> UpdateStudentClassEnrollmentAsync(StudentClassEnrollment studentClassEnrollment)
+    {
+        string sql = @"
+            UPDATE StudentClassEnrollment
+            SET Excluded = @Excluded
+            WHERE AcademicClassId = @AcademicClassId AND StudentId = @StudentId";
+
+        int rowsAffected = await _dbConnection.ExecuteAsync(sql, new
+        {
+            Excluded = studentClassEnrollment.Excluded,
+            AcademicClassId = studentClassEnrollment.AcademicClassId,
+            StudentId = studentClassEnrollment.StudentId
+        });
+
+        return rowsAffected > 0;
     }
 }
