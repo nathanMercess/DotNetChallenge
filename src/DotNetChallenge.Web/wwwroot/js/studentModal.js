@@ -60,7 +60,6 @@ export class StudentModal {
             this.nameInput.addEventListener('input', () => this.validateAddChanges());
             this.userInput.addEventListener('input', () => this.validateAddChanges());
             this.passwordInput.addEventListener('input', () => this.validateAddChanges());
-            this.confirmPasswordInput.addEventListener('input', () => this.validateAddChanges());
         }
     }
 
@@ -73,10 +72,9 @@ export class StudentModal {
     validateAddChanges() {
         const nameFilled = this.nameInput.value.trim() !== "";
         const userFilled = this.userInput.value.trim() !== "";
-        const passwordsMatch = this.passwordInput.value === this.confirmPasswordInput.value;
         const passwordsFilled = this.passwordInput.value.trim() !== "" && this.confirmPasswordInput.value.trim() !== "";
 
-        this.saveButton.disabled = !(nameFilled && userFilled && passwordsFilled && passwordsMatch);
+        this.saveButton.disabled = !(nameFilled && userFilled && passwordsFilled);
     }
 
     resetForm() {
@@ -108,7 +106,8 @@ export class StudentModal {
 
     toggleInvalidClass(input, condition, message) {
         if (!condition) {
-            input.nextElementSibling.textContent = message;
+            this.passwordFeedback.textContent = message;
+            this.confirmPasswordFeedback.textContent = message;
             input.classList.add("is-invalid");
         } else {
             input.classList.remove("is-invalid");
