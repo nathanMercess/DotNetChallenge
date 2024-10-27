@@ -79,7 +79,6 @@ export class StudentModal {
         this.saveButton.disabled = !(nameFilled && userFilled && passwordsFilled && passwordsMatch);
     }
 
-
     resetForm() {
         this.form.reset();
         this.saveButton.disabled = true;
@@ -99,13 +98,12 @@ export class StudentModal {
         const password = this.passwordInput.value;
         const confirmPassword = this.confirmPasswordInput.value;
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        let isValid = true;
 
         this.clearFeedbackMessages();
         this.toggleInvalidClass(this.passwordInput, passwordPattern.test(password), "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial.");
         this.toggleInvalidClass(this.confirmPasswordInput, password === confirmPassword, "As senhas não coincidem.");
 
-        return isValid && passwordPattern.test(password) && password === confirmPassword;
+        return passwordPattern.test(password) && password === confirmPassword;
     }
 
     toggleInvalidClass(input, condition, message) {
@@ -141,14 +139,15 @@ export class StudentModal {
                 ? await this.httpService.put(endpoint, studentDto)
                 : await this.httpService.post(endpoint, studentDto);
 
-            if (response.ok) {
+            if (response.StatusCode === 200) {
                 this.showSuccessMessage(successMessage);
                 setTimeout(() => this.closeModalAndReload(), 3000);
             } else {
-                console.error("Erro ao cadastrar/atualizar o estudante.");
+                alert(`Erro ao cadastrar/atualizar o estudante: ${response.Error}`);
             }
         } catch (error) {
             console.error("Erro na requisição:", error);
+            alert("Erro ao processar a requisição.");
         }
     }
 

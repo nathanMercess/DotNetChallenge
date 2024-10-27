@@ -1,0 +1,104 @@
+﻿@model IEnumerable<DotNetChallenge.Crosscutting.Dtos.AcademicClassDto>
+
+<div class="container mt-4">
+    <h2 class="text-center page-title">Lista de Classes Acadêmicas</h2>
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4 custom-search-bar">
+        <div class="input-group search-group">
+            <input type="text" class="form-control search-input" placeholder="Buscar classe por nome ou curso...">
+        </div>
+
+        <button id="openCreateClassModal" class="btn btn-success btn-add">
+            <i class="bi bi-plus-lg"></i> Cadastrar Classe
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <div id="globalSuccessAlert" class="alert alert-success d-none" role="alert">
+            <span id="globalSuccessAlertMessage">Classe criada com sucesso!</span>
+        </div>
+        <table class="table custom-table">
+            <thead class="table-header">
+                <tr>
+                    <th>Nome da Classe</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var academicClass in Model)
+                {
+                    <tr id="class-row-@academicClass.Id">
+                        <td>@academicClass.ClassName</td>
+                        <td>@academicClass.Year</td>
+                        <td class="action-buttons">
+                            <button class="action-icon btn" title="Editar" onclick="window.location.href='/AcademicClass/AcademicClassDetails/@academicClass.Id'">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button class="action-icon btn btn-danger"
+                                    id="@academicClass.Id"
+                                    onclick="academicClassModal.confirmDelete('@academicClass.Id')"
+                                    data-bs-toggle="popover"
+                                    data-bs-html="true">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center mt-3">
+            Nenhuma classe acadêmica encontrada.
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="createClassModal" tabindex="-1" role="dialog" aria-labelledby="createClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="createClassModalLabel">Add New Academic Class</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" onclick="$('#createClassModal').modal('hide')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                    <span id="errorAlertMessage"></span>
+                </div>
+
+                <div id="successAlert" class="alert alert-success d-none" role="alert">
+                    <span id="successAlertMessage">Classe criada com sucesso!</span>
+                </div>
+
+
+                <form id="createClassForm">
+                    <div class="form-group">
+                        <label for="className">Nome da turma</label>
+                        <input type="text" class="form-control" id="className" name="ClassName" required placeholder="Digite o nome da classe">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Ano</label>
+                        <input type="number" class="form-control" id="year" name="Year" required placeholder="YYYY" min="2000" max="2100">
+                        <small id="yearHelp" class="form-text text-muted">Insira um ano válido entre 2000 e 2100.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#createClassModal').modal('hide')">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveClassButton">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="module" src="~/js/AcademicClassModal.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="~/css/site-custom.css" asp-append-version="true" />

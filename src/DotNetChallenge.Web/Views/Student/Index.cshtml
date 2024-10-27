@@ -18,6 +18,11 @@
     </div>
 
     <div class="table-responsive">
+
+        <div id="globalSuccessAlert" class="alert alert-success d-none" role="alert">
+            <span id="globalSuccessAlertMessage">Estudante criado com sucesso!</span>
+        </div>
+
         <table class="table custom-table">
             <thead class="table-header">
                 <tr>
@@ -33,7 +38,7 @@
                         <td>@student.Name</td>
                         <td>@student.User</td>
                         <td>
-                            <button class="action-icon btn test" onclick="studentService.goToStudentDetails('@student.Id')" title="Editar">
+                            <button class="action-icon btn" onclick="window.location.href='/StudentDetails/@student.Id'" title="Editar">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
                             <button class="action-icon btn btn-danger"

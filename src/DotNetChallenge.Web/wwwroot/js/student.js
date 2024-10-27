@@ -10,32 +10,30 @@ export class StudentService {
         document.addEventListener('DOMContentLoaded', () => this.initializePopover());
     }
 
-     searchStudents() {
+    searchStudents() {
         const searchText = document.getElementById("studentSearch").value.toLowerCase();
         const rows = document.querySelectorAll("#studentTableBody tr");
 
         rows.forEach(row => {
             const name = row.cells[0].innerText.toLowerCase();
             const user = row.cells[1].innerText.toLowerCase();
-
             row.style.display = (name.includes(searchText) || user.includes(searchText)) ? "" : "none";
         });
     }
-
 
     async deleteStudent(studentId) {
         try {
             const response = await this.httpService.delete(`${studentId}`);
 
-            if (response.ok) {
-                console.log(`Estudante com ID ${studentId} excluído com sucesso.`);
+            if (response.StatusCode === 200) {
                 document.getElementById(`student-row-${studentId}`).remove();
+                this.showGlobalSuccessAlert("Excluída com sucesso!");
                 this.cancelDelete(`deleteButton-${studentId}`);
             } else {
-                console.error(`Erro ao excluir o estudante com ID ${studentId}.`);
+                console.error(`Erro ao excluir o estudante: ${response.Error}`);
             }
         } catch (error) {
-            console.error(`Erro na requisição de exclusão: ${error}`);
+            console.error(`Erro na requisição de exclusão: ${error.message}`);
         }
     }
 
@@ -72,6 +70,17 @@ export class StudentService {
 
     goToStudentDetails(studentId) {
         window.location.href = `/StudentDetails/${studentId}`;
+    }
+
+    showGlobalSuccessAlert(message) {
+        const successAlert = document.getElementById("globalSuccessAlert");
+        const successAlertMessage = document.getElementById("globalSuccessAlertMessage");
+        successAlertMessage.textContent = message;
+        successAlert.classList.remove("d-none");
+
+        setTimeout(() => {
+            successAlert.classList.add("d-none");
+        }, 3000);
     }
 }
 

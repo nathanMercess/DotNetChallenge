@@ -5,20 +5,22 @@ namespace DotNetChallenge.Domain.Entities;
 
 public sealed class AcademicClass : Entity
 {
+    private readonly List<Student> _studentsList = new List<Student>();
+
     public Guid CourseId { get; }
 
     public string ClassName { get; private set; }
 
     public int Year { get; private set; }
 
+    public IReadOnlyCollection<Student> Students => _studentsList.AsReadOnly();
+
     public AcademicClass() { }
 
-    public AcademicClass(Guid courseId, string className, int year)
+    public AcademicClass(string className, int year)
     {
-        DomainValidationHelper.IsNotEmpty(courseId, AcademicClassDomainErrorsConstant.INVALID_COURSE_ID);
         SetAcademicClass(className, year);
-
-        CourseId = courseId;
+        CourseId = Guid.NewGuid();
     }
 
     public void SetAcademicClass(string className, int year)
@@ -28,5 +30,13 @@ public sealed class AcademicClass : Entity
 
         ClassName = className;
         Year = year;
+    }
+
+    public void AddStudent(Student student)
+    {
+        if (student != null && !_studentsList.Contains(student))
+        {
+            _studentsList.Add(student);
+        }
     }
 }

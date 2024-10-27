@@ -9,6 +9,7 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddScoped<IStudentService, StudentService>();
+        services.AddScoped<IAcademicClassService, AcademicClassService>();
         services.AddScoped<IPasswordHasherService, PasswordHasherService>();
 
         return services;

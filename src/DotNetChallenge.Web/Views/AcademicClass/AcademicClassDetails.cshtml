@@ -1,0 +1,97 @@
+﻿@model DotNetChallenge.Crosscutting.Dtos.AcademicClassDto
+
+@{
+    ViewData["Title"] = "Detalhes da Classe Acadêmica";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center page-title">Detalhes da Classe Acadêmica</h2>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Informações da Classe Acadêmica</h5>
+            <p><strong>Nome da Turma:</strong> @Model.ClassName</p>
+            <p><strong>Ano:</strong> @Model.Year</p>
+            <button class="btn btn-primary" onclick="openEditModal('@Model.ClassName', '@Model.Year', '@Model.Id')">
+                Editar Classe
+            </button>
+
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Estudantes Matriculados</h5>
+
+            @if (Model.Students != null && Model.Students.Any())
+            {
+                <table class="table table-bordered mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nome do Estudante</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model.Students)
+                        {
+                            <tr>
+                                <td>@student.Name</td>
+                                <td>@student.User</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Nenhum estudante está matriculado nesta turma.</p>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/AcademicClass" class="btn btn-primary">Voltar para a Lista de Classes Acadêmicas</a>
+    </div>
+</div>
+
+<div class="modal fade" id="createClassModal" tabindex="-1" role="dialog" aria-labelledby="createClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="createClassModalLabel">Add New Academic Class</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" onclick="$('#createClassModal').modal('hide')" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                    <span id="errorAlertMessage"></span>
+                </div>
+
+                <div id="successAlert" class="alert alert-success d-none" role="alert">
+                    <span id="successAlertMessage">Classe criada com sucesso!</span>
+                </div>
+
+                <form id="createClassForm">
+                    <div class="form-group">
+                        <label for="className">Nome da turma</label>
+                        <input type="text" class="form-control" id="className" name="ClassName" required placeholder="Digite o nome da classe">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Ano</label>
+                        <input type="number" class="form-control" id="year" name="Year" required placeholder="YYYY" min="2000" max="2100">
+                        <small id="yearHelp" class="form-text text-muted">Insira um ano válido entre 2000 e 2100.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#createClassModal').modal('hide')">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveClassButton">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="module" src="/js/AcademicClassModal.js"></script>

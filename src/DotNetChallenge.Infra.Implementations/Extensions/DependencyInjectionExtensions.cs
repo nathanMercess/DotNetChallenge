@@ -9,6 +9,7 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IStudentRepository, StudentRepository>();
+        services.AddScoped<IAcademicClassRepository, AcademicClassRepository>();
 
         return services;
     }

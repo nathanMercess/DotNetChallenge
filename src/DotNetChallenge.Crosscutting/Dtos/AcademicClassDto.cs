@@ -2,7 +2,8 @@
 
 public sealed class AcademicClassDto
 {
-    public Guid Id { get; }
+
+    public Guid Id { get; set; }
 
     public Guid CourseId { get; set; }
 
@@ -10,11 +11,16 @@ public sealed class AcademicClassDto
 
     public int Year { get; set; }
 
-    public AcademicClassDto(Guid id, Guid courseId, string className, int year)
+    public StudentDto[] Students { get; set; } = [];
+
+    public AcademicClassDto() { }
+
+    public AcademicClassDto(Guid id, Guid courseId, string className, int year, StudentDto[] students)
     {
         Id = id;
         CourseId = courseId;
         ClassName = className;
         Year = year;
+        Students = students;
     }
 }
