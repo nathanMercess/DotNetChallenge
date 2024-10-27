@@ -103,25 +103,6 @@
         background-color: #f1f1f1;
     }
 
-
-.btn-warning {
-    background-color: #ffc107;
-    color: #333;
-}
-
-    .btn-warning:hover {
-        background-color: #e0a800;
-    }
-
-.btn-danger {
-    background-color: #dc3545;
-}
-
-    .btn-danger:hover {
-        background-color: #c82333;
-    }
-
-/* Modais */
 .modal-header, .modal-footer {
     border: none;
 }
@@ -149,11 +130,11 @@
     }
 
     .action-icon .bi-pencil-fill {
-        color: #007bff; 
+        color: #007bff;
     }
 
     .action-icon .bi-trash-fill {
-        color: #dc3545; 
+        color: #dc3545;
     }
 
     .action-icon .bi-pencil-fill:hover {
@@ -239,23 +220,23 @@
 
 
 .action-icon:hover {
-    background-color: rgba(255, 0, 0, 0.2); 
+    background-color: rgb(216,216,216);
     border: none;
 }
 
 
 .popover .btn-danger, .popover .btn-secondary {
-    padding: 4px 8px; 
-    font-size: 0.875rem; 
+    padding: 4px 8px;
+    font-size: 0.875rem;
 }
 
 .popover .btn-danger {
-    background-color: #d9534f; 
+    background-color: #d9534f;
     border-color: #d43f3a;
 }
 
 .popover .btn-secondary {
-    background-color: #6c757d; 
+    background-color: #6c757d;
     border-color: #6c757d;
 }
 
@@ -264,5 +245,5 @@
 }
 
 .popover .btn {
-    margin-right: 4px; 
+    margin-right: 4px;
 }

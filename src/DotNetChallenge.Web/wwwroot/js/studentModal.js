@@ -2,6 +2,11 @@
 
 export class StudentModal {
     constructor() {
+        this.initializeElements();
+        this.initializeEventListeners();
+    }
+
+    initializeElements() {
         this.httpService = new HttpCancelPreviousRequestService();
         this.modalElement = document.getElementById("studentModal");
         this.form = document.getElementById("studentForm");
@@ -14,12 +19,17 @@ export class StudentModal {
         this.saveButton = document.getElementById("saveStudentButton");
         this.modalTitle = document.getElementById("studentModalLabel");
         this.passwordFields = document.getElementById("passwordFields");
+        this.successMessage = document.getElementById("successMessage");
+        this.successAlert = document.getElementById("successAlert");
+        this.modalFooter = document.getElementById("modalFooter");
 
         if (!this.modalElement || !this.form || !this.nameInput || !this.userInput || !this.saveButton || !this.modalTitle || !this.passwordInput || !this.confirmPasswordInput) {
             console.error("Erro ao inicializar elementos do modal. Verifique se os IDs estão corretos na view.");
             return;
         }
+    }
 
+    initializeEventListeners() {
         this.form.addEventListener("input", () => this.toggleSubmitButton());
         this.modalElement.addEventListener("hidden.bs.modal", () => this.resetForm());
     }
@@ -27,102 +37,135 @@ export class StudentModal {
     openStudentModal(student = null) {
         this.isEditMode = student?.Id != null;
         this.student = student || {};
-        this.setModalData();
+        this.setupModalData();
         this.passwordFields.style.display = this.isEditMode ? 'none' : 'block';
-        const bootstrapModal = new bootstrap.Modal(this.modalElement);
-        bootstrapModal.show();
+        new bootstrap.Modal(this.modalElement).show();
     }
 
-    setModalData() {
+    setupModalData() {
         this.modalTitle.textContent = this.isEditMode ? "Editar Estudante" : "Adicionar Estudante";
+        this.saveButton.onclick = this.isEditMode ? () => this.updateStudent() : () => this.validateAndAddStudent();
+        this.setFormValues();
+    }
 
+    setFormValues() {
         this.nameInput.value = this.isEditMode ? this.student.Name : '';
         this.userInput.value = this.isEditMode ? this.student.User : '';
         this.passwordInput.value = '';
         this.confirmPasswordInput.value = '';
-
-        this.toggleSubmitButton();
+        if (this.isEditMode) {
+            this.nameInput.addEventListener('input', () => this.validateEditChanges());
+            this.userInput.addEventListener('input', () => this.validateEditChanges());
+        } else {
+            this.nameInput.addEventListener('input', () => this.validateAddChanges());
+            this.userInput.addEventListener('input', () => this.validateAddChanges());
+            this.passwordInput.addEventListener('input', () => this.validateAddChanges());
+            this.confirmPasswordInput.addEventListener('input', () => this.validateAddChanges());
+        }
     }
 
-    toggleSubmitButton() {
-        const allFilled = [...this.form.querySelectorAll("input[required]")].every(input => input.value.trim() !== "");
-        this.saveButton.disabled = !allFilled;
+    validateEditChanges() {
+        const nameChanged = this.nameInput.value.trim() !== "" && this.nameInput.value !== this.student.Name;
+        const userChanged = this.userInput.value.trim() !== "" && this.userInput.value !== this.student.User;
+        this.saveButton.disabled = !(nameChanged || userChanged);
     }
+
+    validateAddChanges() {
+        const nameFilled = this.nameInput.value.trim() !== "";
+        const userFilled = this.userInput.value.trim() !== "";
+        const passwordsMatch = this.passwordInput.value === this.confirmPasswordInput.value;
+        const passwordsFilled = this.passwordInput.value.trim() !== "" && this.confirmPasswordInput.value.trim() !== "";
+
+        this.saveButton.disabled = !(nameFilled && userFilled && passwordsFilled && passwordsMatch);
+    }
+
 
     resetForm() {
         this.form.reset();
         this.saveButton.disabled = true;
+        this.clearFeedbackMessages();
+    }
+
+    clearFeedbackMessages() {
         this.passwordFeedback.textContent = "";
         this.confirmPasswordFeedback.textContent = "";
     }
 
     validateAndAddStudent() {
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput = document.getElementById("confirmPassword");
-        const passwordFeedback = document.getElementById("passwordFeedback");
-        const confirmPasswordFeedback = document.getElementById("confirmPasswordFeedback");
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
+        if (this.isPasswordValid()) this.addStudent();
+    }
 
+    isPasswordValid() {
+        const password = this.passwordInput.value;
+        const confirmPassword = this.confirmPasswordInput.value;
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
         let isValid = true;
 
-        passwordFeedback.textContent = "";
-        confirmPasswordFeedback.textContent = "";
-        passwordInput.classList.remove("is-invalid");
-        confirmPasswordInput.classList.remove("is-invalid");
+        this.clearFeedbackMessages();
+        this.toggleInvalidClass(this.passwordInput, passwordPattern.test(password), "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial.");
+        this.toggleInvalidClass(this.confirmPasswordInput, password === confirmPassword, "As senhas não coincidem.");
 
-        if (!passwordPattern.test(password)) {
-            passwordFeedback.textContent = "A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial.";
-            passwordInput.classList.add("is-invalid");
-            isValid = false;
-        }
+        return isValid && passwordPattern.test(password) && password === confirmPassword;
+    }
 
-        if (password !== confirmPassword) {
-            confirmPasswordFeedback.textContent = "As senhas não coincidem.";
-            confirmPasswordInput.classList.add("is-invalid");
-            isValid = false;
-        }
-
-        if (isValid) {
-            this.addStudent();
+    toggleInvalidClass(input, condition, message) {
+        if (!condition) {
+            input.nextElementSibling.textContent = message;
+            input.classList.add("is-invalid");
+        } else {
+            input.classList.remove("is-invalid");
         }
     }
 
     async addStudent() {
-        const name = document.getElementById("studentName").value;
-        const user = document.getElementById("studentUser").value;
-        const password = document.getElementById("password").value;
+        const studentDto = {
+            Name: this.nameInput.value,
+            User: this.userInput.value,
+            Password: this.passwordInput.value
+        };
+        await this.saveStudent('/CreateStudent', studentDto, "O estudante foi cadastrado com sucesso!");
+    }
 
-        const studentDto = { Name: name, User: user, Password: password };
+    async updateStudent() {
+        const studentDto = {
+            Id: this.student.Id,
+            Name: this.nameInput.value,
+            User: this.userInput.value
+        };
+        await this.saveStudent('/UpdateStudent', studentDto, "O estudante foi atualizado com sucesso!", "put");
+    }
 
+    async saveStudent(endpoint, studentDto, successMessage, method = "post") {
         try {
-            const response = await this.httpService.post('/CreateStudent', studentDto);
+            const response = method === "put"
+                ? await this.httpService.put(endpoint, studentDto)
+                : await this.httpService.post(endpoint, studentDto);
 
             if (response.ok) {
-                const successAlert = document.getElementById("successAlert");
-                const footer = document.getElementById("modalFooter");
-                successAlert.classList.remove("d-none");
-
-                this.form.classList.add("d-none");
-                footer.classList.add("d-none");
-
-                setTimeout(() => {
-                    successAlert.classList.add("d-none");
-                    this.form.classList.remove("d-none");
-                    footer.classList.remove("d-none");
-                    const modal = bootstrap.Modal.getInstance(this.modalElement);
-                    modal.hide();
-
-                    this.resetForm();
-                }, 3000);
+                this.showSuccessMessage(successMessage);
+                setTimeout(() => this.closeModalAndReload(), 3000);
             } else {
-                console.error("Erro ao cadastrar o estudante.");
+                console.error("Erro ao cadastrar/atualizar o estudante.");
             }
         } catch (error) {
             console.error("Erro na requisição:", error);
         }
+    }
+
+    showSuccessMessage(message) {
+        this.successAlert.classList.remove("d-none");
+        this.successMessage.textContent = message;
+        this.form.classList.add("d-none");
+        this.modalFooter.classList.add("d-none");
+    }
+
+    closeModalAndReload() {
+        this.successAlert.classList.add("d-none");
+        this.form.classList.remove("d-none");
+        this.modalFooter.classList.remove("d-none");
+        bootstrap.Modal.getInstance(this.modalElement).hide();
+        this.resetForm();
+        location.reload();
     }
 }
 
