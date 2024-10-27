@@ -38,7 +38,8 @@ public sealed class AcademicClassRepository : IAcademicClassRepository
                 ac.[Year],
                 s.[Id], 
                 s.[Name], 
-                s.[User]
+                s.[User],
+                s.[Excluded]
             FROM 
                 [AcademicClass] ac
             LEFT JOIN 
@@ -60,7 +61,7 @@ public sealed class AcademicClassRepository : IAcademicClassRepository
                     classDictionary.Add(classId, currentClass);
                 }
 
-                if (student != null)
+                if (student != null && !student.Excluded)
                 {
                     currentClass.AddStudent(student);
                 }

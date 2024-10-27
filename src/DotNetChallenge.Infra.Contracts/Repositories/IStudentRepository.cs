@@ -15,4 +15,6 @@ public interface IStudentRepository
     public Task<bool> ExcludedStudentAsync(Student student);
     
     public Task<Student> GetByIdWithJoinsAsync(Guid studentId);
+    
+    public Task<Student[]> GetAllActiveStudentsNotInCourseAsync(Guid courseId);
 }

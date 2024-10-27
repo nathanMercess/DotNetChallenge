@@ -13,4 +13,6 @@ public interface IStudentService
     public Task<bool> ExcludedStudentAsync(Guid studentId);
 
     public Task<bool> UpdateStudentAsync(StudentDto student);
+    
+    public Task<StudentDto[]> GetActiveStudentsNotInCourseAsync(Guid courseId);
 }

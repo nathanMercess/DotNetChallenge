@@ -4,14 +4,13 @@ export class AcademicClassOffcanvas {
     constructor() {
         this.httpService = new HttpCancelPreviousRequestService();
         this.studentListContainer = document.getElementById("studentList");
-
         const offcanvasElement = document.getElementById("offcanvasStudentList");
         offcanvasElement.addEventListener("show.bs.offcanvas", () => this.loadAvailableStudents());
     }
 
     async loadAvailableStudents() {
         try {
-            const response = await this.httpService.get('/GetAllActiveStudents');
+            const response = await this.httpService.get(`/GetActiveStudentsNotInCourse/${this.getClassId()}`);
             const students = response.Data;
 
             this.studentListContainer.innerHTML = '';
@@ -63,7 +62,14 @@ export class AcademicClassOffcanvas {
     }
 
     showErrorAlert(message) {
-        alert(message);
+        const errorAlert = document.getElementById("studentListError");
+        errorAlert.textContent = message;
+        errorAlert.classList.remove("d-none");
+    }
+
+    hideErrorAlert() {
+        const errorAlert = document.getElementById("studentListError");
+        errorAlert.classList.add("d-none");
     }
 }
 

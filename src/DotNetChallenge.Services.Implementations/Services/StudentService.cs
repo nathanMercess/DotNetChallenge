@@ -79,6 +79,15 @@ internal sealed class StudentService : IStudentService
 
     }
 
+    public async Task<StudentDto[]> GetActiveStudentsNotInCourseAsync(Guid courseId)
+    {
+        if (courseId.IsInvalid()) throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
+
+        Student[] student = await _studentRepository.GetAllActiveStudentsNotInCourseAsync(courseId);
+
+        return student.ToArrayStudentDto();
+    }
+
     private async Task<Student> GetStudentById(Guid studentId)
     {
         Student student = await _studentRepository.GetByIdAsync(studentId);

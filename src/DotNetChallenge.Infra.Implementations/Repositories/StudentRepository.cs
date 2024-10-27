@@ -31,7 +31,8 @@ public sealed class StudentRepository : IStudentRepository
                  [AcademicClass].[Id],
                  [CourseId],
                  [ClassName],
-                 [Year]
+                 [Year],
+                 [AcademicClass].[Excluded]
             FROM 
                 Student
             LEFT JOIN 
@@ -53,7 +54,7 @@ public sealed class StudentRepository : IStudentRepository
                     studentDictionary.Add(studentId, currentStudent);
                 }
 
-                if (academicClass != null)
+                if (academicClass != null && !academicClass.Excluded)
                 {
                     currentStudent.AddAcademicClass(academicClass);
                 }
@@ -92,5 +93,21 @@ public sealed class StudentRepository : IStudentRepository
         int rowsAffected = await _dbConnection.ExecuteAsync(sql, student);
 
         return rowsAffected > 0;
+    }
+
+    public async Task<Student[]> GetAllActiveStudentsNotInCourseAsync(Guid courseId)
+    {
+        string sql = @"
+            SELECT * 
+            FROM Student 
+            WHERE Excluded = 0
+            AND Id NOT IN (
+                SELECT StudentId 
+                FROM StudentClassEnrollment 
+                WHERE AcademicClassId = @CourseId )";
+
+        IEnumerable<Student> students = await _dbConnection.QueryAsync<Student>(sql, new { CourseId = courseId });
+
+        return students.ToArray();
     }
 }
