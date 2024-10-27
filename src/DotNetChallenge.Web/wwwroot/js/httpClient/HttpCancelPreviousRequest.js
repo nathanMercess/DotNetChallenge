@@ -1,6 +1,6 @@
 ﻿export class HttpCancelPreviousRequestService {
     constructor() {
-        this.pendingRequests = new Map(); 
+        this.pendingRequests = new Map();
     }
 
     cancelRequestByUrl(url) {
@@ -19,13 +19,19 @@
 
         try {
             const response = await requestFunction(controller.signal);
-            this.pendingRequests.delete(url); 
-            return response;
+            this.pendingRequests.delete(url);
+            const responseData = await response.json();
+             
+            if (response.ok && responseData.StatusCode === 200) {
+                return responseData;  
+            } else {
+                throw new Error(responseData.Error || "Erro desconhecido");
+            }
         } catch (error) {
             if (error.name === 'AbortError') {
                 console.log('Requisição cancelada:', url);
             } else {
-                console.error('Erro na requisição:', error);
+                console.error('Erro na requisição:', error.message);
             }
             throw error;
         }
