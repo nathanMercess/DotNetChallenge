@@ -7,14 +7,14 @@ public sealed class StudentClassEnrollment : Entity
 {
     public Guid AcademicClassId { get; }
 
-    public Guid StutantId { get; }
+    public Guid StudentId { get; }
 
-    public StudentClassEnrollment(Guid academicClassId, Guid stutantId)
+    public StudentClassEnrollment(Guid academicClassId, Guid studentId)
     {
         DomainValidationHelper.IsNotEmpty(academicClassId, StudentClassEnrollmentDomainErrorsConstant.INVALID_ACADEMIC_CLASS_ID);
-        DomainValidationHelper.IsNotEmpty(stutantId, StudentClassEnrollmentDomainErrorsConstant.INVALID_ACADEMIC_CLASS_STUDENT_ID);
+        DomainValidationHelper.IsNotEmpty(studentId, StudentClassEnrollmentDomainErrorsConstant.INVALID_ACADEMIC_CLASS_STUDENT_ID);
 
         AcademicClassId = academicClassId;
-        StutantId = stutantId;
+        StudentId = studentId;
     }
 }

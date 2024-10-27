@@ -17,4 +17,6 @@ public interface IAcademicClassRepository
     Task<bool> ExcludeClassAsync(Guid classId);
 
     Task<AcademicClass> ExistsByClassNameAsync(string className);
+
+    Task<bool> AddStudentToClassAsync(StudentClassEnrollment studentClassEnrollment);
 }

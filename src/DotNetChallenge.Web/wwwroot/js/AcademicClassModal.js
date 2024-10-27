@@ -58,6 +58,7 @@ export class AcademicClassModal {
     }
 
     async handleSave() {
+        this.hideErrorAlert();
         const className = this.classNameInput.val();
         const year = parseInt(this.yearInput.val());
 
@@ -112,7 +113,12 @@ export class AcademicClassModal {
                 return await response.Result;
             }
         } catch (error) {
-            this.showErrorAlert(error.message);
+            if (error.message === "DUPLICATE_CLASS_NAME") {
+                this.showErrorAlert("Erro: Já existe uma turma com esse nome. Por favor, escolha outro nome.");
+                return null;
+            }
+            this.showErrorAlert(`Erro ao criar a classe acadêmica: ${error.message}`);
+
         }
     }
 

@@ -1,18 +1,15 @@
-﻿/* Container da página */
-.container {
+﻿.container {
     max-width: 800px;
     margin: 0 auto;
     padding-top: 20px;
 }
 
-/* Título centralizado */
 h2.text-center {
     font-weight: 600;
     margin-bottom: 30px;
     color: #333;
 }
 
-/* Container de busca e botão de cadastro */
 .search-container {
     display: flex;
     justify-content: space-between;
@@ -20,7 +17,6 @@ h2.text-center {
     margin-bottom: 20px;
 }
 
-/* Campo de busca estilizado */
 .search-input {
     width: 300px;
     padding: 10px;
@@ -28,7 +24,6 @@ h2.text-center {
     border-radius: 4px;
 }
 
-/* Botão de cadastro */
 .btn-success {
     display: flex;
     align-items: center;
@@ -46,7 +41,6 @@ h2.text-center {
         background-color: #218838;
     }
 
-/* Tabela estilizada */
 .table {
     border-collapse: separate;
     border-spacing: 0;
@@ -57,7 +51,6 @@ h2.text-center {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-    /* Cabeçalho da tabela */
     .table thead {
         background-color: #343a40;
         color: #ffffff;
@@ -65,7 +58,6 @@ h2.text-center {
         font-size: 0.9rem;
     }
 
-    /* Células da tabela */
     .table tbody tr {
         border-bottom: 1px solid #ddd;
     }
@@ -80,7 +72,6 @@ h2.text-center {
         text-align: left;
     }
 
-/* Ações da tabela */
 .action-buttons .btn {
     margin-right: 5px;
     padding: 5px 8px;

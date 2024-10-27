@@ -6,9 +6,11 @@ export class AcademicClassOffcanvas {
         this.studentListContainer = document.getElementById("studentList");
         const offcanvasElement = document.getElementById("offcanvasStudentList");
         offcanvasElement.addEventListener("show.bs.offcanvas", () => this.loadAvailableStudents());
+        this.baseUrl = '/AcademicClass/';
     }
 
     async loadAvailableStudents() {
+        this.hideErrorAlert();
         try {
             const response = await this.httpService.get(`/GetActiveStudentsNotInCourse/${this.getClassId()}`);
             const students = response.Data;
@@ -25,24 +27,32 @@ export class AcademicClassOffcanvas {
                             <h5 class="mb-0">${student.name}</h5>
                             <small class="text-muted">(${student.user})</small>
                         </div>
-                        <button class="btn btn-primary btn-sm" onclick="academicClassOffcanvas.addStudentToClass('${student.id}')">Adicionar</button>
+                        <button class="btn btn-primary btn-sm" onclick="academicClassOffcanvas.addStudentToClass('${student.id}', '${encodeURIComponent(student.name)}')">Adicionar</button>
                     </div> `;
 
                 this.studentListContainer.appendChild(studentItem);
             });
+
+            if (students.length === 0) {
+                const noStudentsMessage = document.createElement("div");
+                noStudentsMessage.classList.add("text-center", "text-muted", "mt-3");
+                noStudentsMessage.textContent = "Nenhum aluno disponível para adicionar.";
+
+                this.studentListContainer.appendChild(noStudentsMessage);
+            }
 
         } catch (error) {
             this.showErrorAlert("Erro ao carregar a lista de estudantes. Por favor, tente novamente.");
         }
     }
 
-    async addStudentToClass(studentId) {
+    async addStudentToClass(studentId, studentName) {
         const classId = this.getClassId();
-
+        const url = `${this.baseUrl}AddStudentToClass/${classId}/${studentId}`;
         try {
-            const response = await this.httpService.post(`/api/academic-class/${classId}/add-student`, { studentId });
-            if (response.ok) {
-                this.showSuccessAlert("Estudante adicionado com sucesso!");
+            const response = await this.httpService.post(url, { studentId });
+            if (response.StatusCode == 200) {
+                this.showSuccessAlert(`${studentName} adicionado(a) com sucesso à classe!`);
                 this.loadAvailableStudents();
             } else {
                 this.showErrorAlert("Erro ao adicionar estudante.");
@@ -58,8 +68,16 @@ export class AcademicClassOffcanvas {
     }
 
     showSuccessAlert(message) {
-        alert(message);
+        const successAlert = document.getElementById("sidebarSuccessAlert");
+        const successAlertMessage = document.getElementById("sidebarSuccessAlertMessage");
+        successAlertMessage.textContent = message;
+        successAlert.classList.remove("d-none");
+
+        setTimeout(() => {
+            successAlert.classList.add("d-none");
+        }, 3000);
     }
+
 
     showErrorAlert(message) {
         const errorAlert = document.getElementById("studentListError");

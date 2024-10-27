@@ -61,7 +61,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="createClassModalLabel">Add New Academic Class</h5>
+                <h5 class="modal-title" id="createClassModalLabel">Criar nova classe</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" onclick="$('#createClassModal').modal('hide')" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -95,9 +95,12 @@
     </div>
 </div>
 
-
 @Html.Partial("_StudentSelectionOffcanvas")
 
 <script type="module" src="/js/AcademicClassModal.js"></script>
 <script type="module" src="/js/AcademicClassSidebar.js"></script>
 <link rel="stylesheet" href="~/css/site-custom.css" asp-append-version="true" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />

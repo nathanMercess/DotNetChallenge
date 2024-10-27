@@ -107,5 +107,15 @@ public sealed class AcademicClassRepository : IAcademicClassRepository
 
         return rowsAffected > 0;
     }
-}
 
+    public async Task<bool> AddStudentToClassAsync(StudentClassEnrollment studentClassEnrollment)
+    {
+        string sql = @"
+            INSERT INTO StudentClassEnrollment (StudentId, AcademicClassId, Excluded) 
+            VALUES (@StudentId, @AcademicClassId, @Excluded)";
+
+        int result = await _dbConnection.ExecuteAsync(sql, studentClassEnrollment);
+
+        return result > 0;
+    }
+}

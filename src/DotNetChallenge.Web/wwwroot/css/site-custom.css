@@ -303,3 +303,58 @@
         font-size: 0.875rem;
         padding: 5px 10px;
     }
+
+
+.modal-content {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: rgb(239, 239, 240) !important;
+    color: white;
+}
+
+.modal-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-body {
+    background-color: #f8f9fa;
+}
+
+.input-group-text {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.form-control:focus {
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+}
+
+.btn {
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.alert {
+    border-radius: 5px;
+}
+
+#successAlert, #errorAlert {
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+#saveClassButton {
+    background-color: #28a745;
+    border: none;
+}
+
+    #saveClassButton:hover {
+        background-color: #218838;
+    }

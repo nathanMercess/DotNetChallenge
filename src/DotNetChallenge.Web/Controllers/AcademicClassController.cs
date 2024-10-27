@@ -31,5 +31,9 @@ namespace DotNetChallenge.Web.Controllers
         [HttpDelete("{classId:guid}")]
         public async Task<IActionResult> ExcludeAcademicClass([FromRoute] Guid classId)
             => Ok(await _academicClassService.ExcludeClassAsync(classId));
+
+        [HttpPost("AddStudentToClass/{classId:guid}/{studentId:guid}")]
+        public async Task<IActionResult> AddStudentToClass(Guid classId, Guid studentId)
+            => Ok(await _academicClassService.AddStudentToClassAsync(classId, studentId));
     }
 }

@@ -6,8 +6,6 @@ using DotNetChallenge.Domain.Entities;
 using DotNetChallenge.Domain.Extensions;
 using DotNetChallenge.Infra.Contracts.Repositories;
 using DotNetChallenge.Services.Contracts.Services;
-using System;
-using System.Threading.Tasks;
 
 namespace DotNetChallenge.Services.Implementations.Services;
 
@@ -87,9 +85,19 @@ internal sealed class AcademicClassService : IAcademicClassService
         return await _academicClassRepository.ExcludeClassAsync(classId);
     }
 
+    public async Task<bool> AddStudentToClassAsync(Guid classId, Guid studentId)
+    {
+        if (classId.IsInvalid() || studentId.IsInvalid())
+            throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
+
+        StudentClassEnrollment studentClassEnrollment = new StudentClassEnrollment(classId, studentId) { };
+
+        return await _academicClassRepository.AddStudentToClassAsync(studentClassEnrollment);
+    }
+
     private async Task<AcademicClass> GetAcademicClassById(Guid classId)
     {
-        AcademicClass? academicClass = await _academicClassRepository.GetByIdAsync(classId);
+        AcademicClass academicClass = await _academicClassRepository.GetByIdAsync(classId);
 
         if (academicClass is null)
             throw new HandledException(ExceptionConstants.CLASS_NOT_FOUND);
