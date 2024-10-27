@@ -14,6 +14,10 @@ public sealed class StudentController : Controller
     public async Task<IActionResult> Index()
         => View(await _studentService.GetAllActiveStudentsAsync());
 
+    [HttpGet(nameof(GetAllActiveStudents))]
+    public async Task<IActionResult> GetAllActiveStudents()
+        => Ok(await _studentService.GetAllActiveStudentsAsync());
+
     [HttpGet("StudentDetails/{studentId:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid studentId)
         => View("~/Views/StudentDetails/Index.cshtml", await _studentService.GetByIdWithJoinsAsync(studentId));

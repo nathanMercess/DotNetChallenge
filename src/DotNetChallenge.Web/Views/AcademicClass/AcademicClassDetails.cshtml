@@ -21,6 +21,7 @@
 
     <div class="card mt-4">
         <div class="card-body">
+
             <h5 class="card-title">Estudantes Matriculados</h5>
 
             @if (Model.Students != null && Model.Students.Any())
@@ -47,6 +48,7 @@
             {
                 <p class="text-muted">Nenhum estudante está matriculado nesta turma.</p>
             }
+            <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStudentList" aria-controls="offcanvasStudentList">Adicionar Estudante</button>
         </div>
     </div>
 
@@ -94,4 +96,8 @@
 </div>
 
 
+@Html.Partial("_StudentSelectionOffcanvas")
+
 <script type="module" src="/js/AcademicClassModal.js"></script>
+<script type="module" src="/js/AcademicClassSidebar.js"></script>
+<link rel="stylesheet" href="~/css/site-custom.css" asp-append-version="true" />
