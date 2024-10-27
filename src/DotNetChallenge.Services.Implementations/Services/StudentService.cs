@@ -6,11 +6,14 @@ using DotNetChallenge.Domain.Entities;
 using DotNetChallenge.Domain.Extensions;
 using DotNetChallenge.Infra.Contracts.Repositories;
 using DotNetChallenge.Services.Contracts.Services;
+using System.Text.RegularExpressions;
 
 namespace DotNetChallenge.Services.Implementations.Services;
 
 internal sealed class StudentService : IStudentService
 {
+    private readonly Regex _passwordPattern = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+
     private readonly IStudentRepository _studentRepository;
 
     private readonly IPasswordHasherService _passwordHasherService;
@@ -43,10 +46,9 @@ internal sealed class StudentService : IStudentService
         return student.ToStudentDto();
     }
 
-
     public async Task<bool> CreateStudentAsync(StudentDto request)
     {
-        if (request is null) throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
+        if (request is null && _passwordPattern.IsMatch(request.Password)) throw new HandledException(ExceptionConstants.INVALID_CONTRACT);
 
         request.Password = _passwordHasherService.HashPassword(request.Password);
 

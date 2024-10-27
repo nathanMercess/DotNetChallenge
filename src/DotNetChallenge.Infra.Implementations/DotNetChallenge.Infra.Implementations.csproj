@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
 	</ItemGroup>
 
@@ -16,6 +17,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DotNetChallenge.Infra.Contracts\DotNetChallenge.Infra.Contracts.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Repositories\connection\" />
 	</ItemGroup>
 
 </Project>
